@@ -1,0 +1,26 @@
+# Editors
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Local Claude Code settings
+.claude/
+
+# Ruby
+*.gem
+*.rbc
+/.bundle/
+/vendor/
+/pkg/
+/tmp/
+/coverage/
+
+# mise (the Ruby version is pinned in mise.toml, which IS tracked)
+.mise/
+mise.local.toml
+
+# Legacy: the shell version wrote a handoff file into the project directory.
+# The Ruby tool keeps it under ~/.claude/auto-handoff/ instead.
+HANDOFF.txt
+HANDOFF.md

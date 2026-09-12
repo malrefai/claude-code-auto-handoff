@@ -1,0 +1,33 @@
+[tools]
+ruby = "4.0.4"
+
+[tasks."bundle:install"]
+description = "Install gem dependencies isolated to this project"
+run = """
+bundle config set --local path 'vendor/bundle'
+bundle install
+"""
+
+[tasks.rubocop]
+description = "Run the rubocop"
+run = "bundle exec rubocop"
+
+[tasks.test]
+description = "Run the full test suite"
+depends = ["bundle:install"]
+run = "bundle exec rake test"
+
+[tasks.lint]
+description = "Check every Ruby file parses cleanly with warnings enabled"
+depends = ["bundle:install"]
+run = "bundle exec rake lint"
+
+[tasks.check]
+description = "Lint and test — run this before committing"
+depends = ["lint", "test"]
+
+# cld itself needs no gems, so this deliberately does not go through bundler:
+# it runs the tool exactly as an installed copy would.
+[tasks.cld]
+description = "Run the local build, e.g. `mise run cld -- status`"
+run = "./bin/cld"

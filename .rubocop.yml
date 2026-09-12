@@ -1,0 +1,48 @@
+AllCops:
+  # Not cosmetic — this is a correctness check. The Homebrew formula declares a
+  # Ruby 3.0 floor, and targeting 3.0 here is what caught
+  # `def backend = raise NotImplementedError`, which Ruby 3.0 cannot parse.
+  # Do not raise this without also raising the floor in Formula/cld.rb.
+  TargetRubyVersion: 3.0
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - "vendor/**/*"
+    # Homebrew's DSL, not our Ruby. Formulae are linted with `brew style`,
+    # which has its own rules (`<<~EOS`, no class documentation, and so on).
+    - "Formula/**/*"
+
+# format("%-10s %5.1f%% used", name, pct) lines up a table at a glance.
+# Annotated tokens would make the same line significantly harder to read.
+Style/FormatStringToken:
+  EnforcedStyle: unannotated
+
+# Tests are excluded from the size cops below on purpose. A test should read as
+# one flat narrative — arrange, act, assert — and splitting it into helpers to
+# satisfy a line count makes it harder to see what is actually being verified.
+Metrics/MethodLength:
+  Max: 30
+  Exclude:
+    - "test/**/*"
+Metrics/AbcSize:
+  Max: 30
+  Exclude:
+    - "test/**/*"
+Metrics/CyclomaticComplexity:
+  Max: 12
+Metrics/PerceivedComplexity:
+  Max: 12
+Metrics/ClassLength:
+  Max: 200
+  Exclude:
+    - "test/**/*"
+Metrics/ParameterLists:
+  Max: 6
+  Exclude:
+    - "test/**/*"
+Metrics/BlockLength:
+  Exclude:
+    - "test/**/*"
+Style/Documentation:
+  Exclude:
+    - "test/**/*"

@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../lib/claude_handoff'
+
+ClaudeHandoff.program_path = __FILE__
+exit ClaudeHandoff::CLI.new.run(ARGV)
